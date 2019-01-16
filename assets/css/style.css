@@ -1,0 +1,38 @@
+/* Global */
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+html {
+    width: 100vw;
+}
+
+.container {
+    width: 100%;
+}
+
+/* Background */
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f4f4f4;
+}
+
+/* Title */
+nav.nav.justify-content-center.bg-dark{
+    width: 100%;
+    border: 1px #343a40 solid; 
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+nav h1 {
+    color: #f5f5f5;
+}
+
+/* Game */
+
+#game-div {
+    height: 400px;
+    border: 1px solid #343a40;
+    border-radius: 10px;
+    margin-top: 3rem;
+    box-shadow: 0 0 10px #343a40;
+}
+
