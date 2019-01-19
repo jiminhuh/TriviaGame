@@ -9,32 +9,38 @@
 
 var game = {
     // Create object of questions made into seperate objects
-    questions: {
-        question1: {
+    questions: [
+        {
             question: "Which animal has the longest lifespan?",
-            answerChoices: ["Elephant", "locust","blue whale","giant tortoise"]
+            answerChoices: ["Elephant", "locust","blue whale","giant tortoise"],
+            answer: "Answer is Giant Tortoise!"
         },
-        question2: {
+        {
             question: "Which is the only mammal capable of true flight?",
-            answerChoices: ["Hummingbird", "bat", "ocelot", "flying squirrel"]
+            answerChoices: ["Hummingbird", "bat", "ocelot", "flying squirrel"],
+            answer: "Answer is Hummingbird!"
         },
-        question3: {
+        {
             question: "Which is the world's most poisonous spider?",
-            answerChoices: ["Brazilian wandering spider", "Brown recluse", "Syndney funnel spider", "Daddy Longlegs"]
+            answerChoices: ["Brazilian wandering spider", "Brown recluse", "Syndney funnel spider", "Daddy Longlegs"],
+            answer: "Answer is Brown Recluse!"
         },
-        question4: {
+        {
             question: "How many times, per second, can a Hummingbird flap its wings?",
-            answerChoices: [20,40,80,160]
+            answerChoices: [20,40,80,160],
+            answer: "Answer is 160!"
         },
-        question5: {
+        {
             question: "Which is the smallest mammal in the world?",
-            answerChoices: ["Western harvest mouse", "numbat", "pygmy marmoset", "bumblebee bat"]
+            answerChoices: ["Western harvest mouse", "numbat", "pygmy marmoset", "bumblebee bat"],
+            answer: "Answer is Bumblebee Bat"
         },
-        question6: {
+        {
             question: "Which is the fastest flying bird in the world?",
-            answerChoices: ["Harpy Eagle", "Peregrine Falcon", "Spine-Tailed Swift", "Horned Sungem"]
+            answerChoices: ["Harpy Eagle", "Peregrine Falcon", "Spine-Tailed Swift", "Horned Sungem"],
+            answer: "Answer is Spine-Tailed Swift"
         }
-    },
+    ],
     
     // Array of final answers
     answers: [4,1,2,4,4,3],
@@ -42,15 +48,21 @@ var game = {
     // Start method to start game when start button is pressed
     start: function () {
         var button = $("#start-button");
-        button.on("click", function() {
+        button.on("click", () => {
             // reset the div for the trivia
             $("button").remove();
             $("#question").text("");
-            // grab element via jQuery
-            var question = $("#question")
-            var answerChoices = $("#answerChoices")
-
+            game.stage1();
         })
+    },
+
+    stage1: function () {
+        var questionDiv = $("#question");
+        var answerChoiceDiv = $("#answerChoices");
+        var timer = 0;
+        for(var i = 0; i < game.questions.length; i++) {
+
+        }
     }
 }
 
