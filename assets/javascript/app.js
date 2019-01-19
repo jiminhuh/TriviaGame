@@ -13,37 +13,38 @@ var game = {
         {
             question: "Which animal has the longest lifespan?",
             answerChoices: ["Elephant", "locust","blue whale","giant tortoise"],
-            answer: "Answer is Giant Tortoise!"
+            answer: "Answer is Giant Tortoise!",
+            picture: "assets/images/tortoise.jpg"
         },
         {
             question: "Which is the only mammal capable of true flight?",
             answerChoices: ["Hummingbird", "bat", "ocelot", "flying squirrel"],
-            answer: "Answer is Hummingbird!"
-        },
-        {
-            question: "Which is the world's most poisonous spider?",
-            answerChoices: ["Brazilian wandering spider", "Brown recluse", "Syndney funnel spider", "Daddy Longlegs"],
-            answer: "Answer is Brown Recluse!"
+            answer: "Answer is Hummingbird!",
+            picture: "assets/images/hummingbird.jpg"
         },
         {
             question: "How many times, per second, can a Hummingbird flap its wings?",
             answerChoices: [20,40,80,160],
-            answer: "Answer is 160!"
+            answer: "Answer is 160!",
+            picture: "assets/images/hummingbird.gif"
         },
         {
             question: "Which is the smallest mammal in the world?",
             answerChoices: ["Western harvest mouse", "numbat", "pygmy marmoset", "bumblebee bat"],
-            answer: "Answer is Bumblebee Bat"
+            answer: "Answer is Bumblebee Bat",
+            picture: "assets/images/bumblebeebat.jpg"
         },
         {
             question: "Which is the fastest flying bird in the world?",
             answerChoices: ["Harpy Eagle", "Peregrine Falcon", "Spine-Tailed Swift", "Horned Sungem"],
-            answer: "Answer is Spine-Tailed Swift"
+            answer: "Answer is Spine-Tailed Swift",
+            picture: "assets/images/spinetail.jpg"
         }
     ],
     
     // Array of final answers
     answers: [4,1,2,4,4,3],
+    timer: 30,
 
     // Start method to start game when start button is pressed
     start: function () {
@@ -59,10 +60,37 @@ var game = {
     stage1: function () {
         var questionDiv = $("#question");
         var answerChoiceDiv = $("#answerChoices");
-        var timer = 0;
-        for(var i = 0; i < game.questions.length; i++) {
 
+        // Update question div with each index of questions array
+        questionDiv.html(game.questions[0].question + "<h3 id='timer'>" + game.timer + "</h3>");
+
+        // answer choices string to populate on HTML
+        var answerChoiceString = 
+        "<div class='answer-div'><input type='radio' value='1' id='choice1'> <label for='choice1'>" + game.questions[0].answerChoices[0] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='2' id='choice2'> <label for='choice2'>" + game.questions[0].answerChoices[1] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='3' id='choice3'> <label for='choice3'>" + game.questions[0].answerChoices[2] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='4' id='choice4'> <label for='choice4'>" + game.questions[0].answerChoices[3] + "</label><div>" +
+        "<input type='submit' id='submit-button'>" 
+
+        // populate the answerchoices on HTML
+        answerChoiceDiv.html(answerChoiceString);
+        // run Interval method
+        game.Interval();
+
+        if(game.timer === 0) {
+            clearInterval(Interval1);
+            $("#question").text("Time Up!")
         }
+
+
+        
+      
+    },
+    Interval: function Interval1 () {
+        setInterval(() => {
+            game.timer--;
+            $("#timer").text(game.timer);
+        },1000)
     }
 }
 
