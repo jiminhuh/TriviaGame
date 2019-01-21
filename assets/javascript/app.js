@@ -62,35 +62,45 @@ var game = {
         var answerChoiceDiv = $("#answerChoices");
 
         // Update question div with each index of questions array
-        questionDiv.html(game.questions[0].question + "<h3 id='timer'>" + game.timer + "</h3>");
+        questionDiv.html(game.questions[0].question);
+        questionDiv.append("<h3 id='timer'>" + game.timer + "</h3>");
 
         // answer choices string to populate on HTML
         var answerChoiceString = 
-        "<div class='answer-div'><input type='radio' value='1' id='choice1'> <label for='choice1'>" + game.questions[0].answerChoices[0] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='2' id='choice2'> <label for='choice2'>" + game.questions[0].answerChoices[1] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='3' id='choice3'> <label for='choice3'>" + game.questions[0].answerChoices[2] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='4' id='choice4'> <label for='choice4'>" + game.questions[0].answerChoices[3] + "</label><div>" +
+        "<div class='answer-div'><input type='radio' value='1' id='choice1'> <label for='choice1' id='choice-1'>" + game.questions[0].answerChoices[0] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='2' id='choice2'> <label for='choice2' id='choice-1'>" + game.questions[0].answerChoices[1] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='3' id='choice3'> <label for='choice3' id='choice-1'>" + game.questions[0].answerChoices[2] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='4' id='choice4'> <label for='choice4' id='choice-1'>" + game.questions[0].answerChoices[3] + "</label><div>" +
         "<input type='submit' id='submit-button'>" 
 
         // populate the answerchoices on HTML
         answerChoiceDiv.html(answerChoiceString);
-        // run Interval method
-        game.Interval();
 
-        if(game.timer === 0) {
-            clearInterval(Interval1);
-            $("#question").text("Time Up!")
-        }
-
-
-        
-      
-    },
-    Interval: function Interval1 () {
+        // 30 second timer for each question
         setInterval(() => {
             game.timer--;
             $("#timer").text(game.timer);
+            if(game.timer === 0) {
+                game.wrong();
+            }
         },1000)
+
+        
+    },
+
+    stage2: function () {
+
+    },
+
+    wrong: function() {
+        for(var i = 0; i < game.questions.length; i++) {
+            if($("choice-1").text() == game.questions[i].answerChoices[0]) {
+                $("#answerChoices").html("<img src=" + game.questions[i].picture + ">");
+                $("#answerChoices").append("<h3>" + game.questions[i].answer + "</h3>");
+            }
+        }
+        $("#question").text("Time is Up!");
+        
     }
 }
 

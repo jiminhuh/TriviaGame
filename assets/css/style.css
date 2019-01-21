@@ -8,6 +8,11 @@ html {
     width: 100%;
 }
 
+img {
+    width: 250px;
+    height: 250px;
+}
+
 /* Background */
 body {
     font-family: 'Playfair Display', serif;
