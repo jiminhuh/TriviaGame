@@ -41,9 +41,7 @@ var game = {
             picture: "assets/images/spinetail.jpg"
         }
     ],
-    
-    // Array of final answers
-    answers: [4,1,2,4,4,3],
+
     timer: 30,
 
     // Start method to start game when start button is pressed
@@ -53,54 +51,24 @@ var game = {
             // reset the div for the trivia
             $("button").remove();
             $("#question").text("");
-            game.stage1();
+            game.populate();
         })
     },
 
-    stage1: function () {
-        var questionDiv = $("#question");
-        var answerChoiceDiv = $("#answerChoices");
-
-        // Update question div with each index of questions array
-        questionDiv.html(game.questions[0].question);
-        questionDiv.append("<h3 id='timer'>" + game.timer + "</h3>");
-
-        // answer choices string to populate on HTML
-        var answerChoiceString = 
-        "<div class='answer-div'><input type='radio' value='1' id='choice1'> <label for='choice1' id='choice-1'>" + game.questions[0].answerChoices[0] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='2' id='choice2'> <label for='choice2' id='choice-1'>" + game.questions[0].answerChoices[1] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='3' id='choice3'> <label for='choice3' id='choice-1'>" + game.questions[0].answerChoices[2] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='4' id='choice4'> <label for='choice4' id='choice-1'>" + game.questions[0].answerChoices[3] + "</label><div>" +
-        "<input type='submit' id='submit-button'>" 
-
-        // populate the answerchoices on HTML
-        answerChoiceDiv.html(answerChoiceString);
-
-        // 30 second timer for each question
-        setInterval(() => {
-            game.timer--;
-            $("#timer").text(game.timer);
-            if(game.timer === 0) {
-                game.wrong();
-            }
-        },1000)
-
-        
-    },
-
-    stage2: function () {
-
-    },
-
-    wrong: function() {
+    populate: function() {
         for(var i = 0; i < game.questions.length; i++) {
-            if($("choice-1").text() == game.questions[i].answerChoices[0]) {
-                $("#answerChoices").html("<img src=" + game.questions[i].picture + ">");
-                $("#answerChoices").append("<h3>" + game.questions[i].answer + "</h3>");
-            }
+            var quiz = $("#quiz");
+            var quizTemplate = 
+            "<div id='populate'> <h2 id='question'>" + game.questions[i].question + "</h2>" +
+            "<div class='answer-div'><input type='radio' value='1' id='choice1'> <label for='choice1' id='choice-1'>" + game.questions[i].answerChoices[0] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='2' id='choice2'> <label for='choice2' id='choice-1'>" + game.questions[i].answerChoices[1] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='3' id='choice3'> <label for='choice3' id='choice-1'>" + game.questions[i].answerChoices[2] + "</label></div>" +
+        "<div class='answer-div'><input type='radio' value='4' id='choice4'> <label for='choice4' id='choice-1'>" + game.questions[i].answerChoices[3] + "</label><div></div>";
+
+            quiz.append(quizTemplate);
         }
-        $("#question").text("Time is Up!");
-        
+        quiz.append("<input type ='submit' id='submitBtn' value='Submit'>");
+        quiz.prepend("<h3 id='time'> Time: " + game.timer + "</h3>");
     }
 }
 
