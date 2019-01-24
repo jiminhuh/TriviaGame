@@ -24,7 +24,7 @@ var game = {
         },
         {
             question: "How many times, per second, can a Hummingbird flap its wings?",
-            answerChoices: [20,40,80,160],
+            answerChoices: [20,160,80,40],
             answer: "Answer is 160!",
             picture: "assets/images/hummingbird.gif"
         },
@@ -41,7 +41,7 @@ var game = {
             picture: "assets/images/spinetail.jpg"
         }
     ],
-
+    answer: ["4", "1", "2", "4", "3"],
     timer: 30,
 
     // Start method to start game when start button is pressed
@@ -51,25 +51,114 @@ var game = {
             // reset the div for the trivia
             $("button").remove();
             $("#question").text("");
-            game.populate();
+            game.quiz();
         })
     },
 
-    populate: function() {
+    quiz: function() {
         for(var i = 0; i < game.questions.length; i++) {
             var quiz = $("#quiz");
             var quizTemplate = 
-            "<div id='populate'> <h2 id='question'>" + game.questions[i].question + "</h2>" +
-            "<div class='answer-div'><input type='radio' value='1' id='choice1'> <label for='choice1' id='choice-1'>" + game.questions[i].answerChoices[0] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='2' id='choice2'> <label for='choice2' id='choice-1'>" + game.questions[i].answerChoices[1] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='3' id='choice3'> <label for='choice3' id='choice-1'>" + game.questions[i].answerChoices[2] + "</label></div>" +
-        "<div class='answer-div'><input type='radio' value='4' id='choice4'> <label for='choice4' id='choice-1'>" + game.questions[i].answerChoices[3] + "</label><div></div>";
+            "<form id='populate'> <h2 id='question'>" + game.questions[i].question + "</h2>" +
+            "<input type='radio' value='1' name='choice" + i +"'> <label for='choice1'>" + game.questions[i].answerChoices[0] + "</label>" +
+        "<input type='radio' value='2' name='choice" + i +"'> <label for='choice2'>" + game.questions[i].answerChoices[1] + "</label>" +
+        "<input type='radio' value='3' name='choice" + i +"'> <label for='choice3'>" + game.questions[i].answerChoices[2] + "</label>" +
+        "<input type='radio' value='4' name='choice" + i +"'> <label for='choice4'>" + game.questions[i].answerChoices[3] + "</label></form>";
 
             quiz.append(quizTemplate);
         }
+
         quiz.append("<input type ='submit' id='submitBtn' value='Submit'>");
         quiz.prepend("<h3 id='time'> Time: " + game.timer + "</h3>");
+
+        var myTimer = setInterval(function () {
+            game.timer--;
+            $("#time").text("Time: " + game.timer);
+            if (game.timer === 0) {
+                var value1 = $("input[name='choice0']:checked").val();
+                var value2 = $("input[name='choice1']:checked").val();
+                var value3 = $("input[name='choice2']:checked").val();
+                var value4 = $("input[name='choice3']:checked").val();
+                var value5 = $("input[name='choice4']:checked").val();
+                
+                radioValue.push(value1, value2, value3, value4, value5);
+                console.log(radioValue);
+
+                for(var i = 0; i < game.questions.length; i++) {
+                    if(radioValue[i] == undefined) {
+                        DNA.push(i);
+                    } else if(radioValue[i] == game.answer[i]) {
+                        rightArray.push(radioValue[i]);
+                    } else if(radioValue[i] !== game.answer[i] && radioValue[i] !== undefined) {
+                        wrongArray.push(radioValue[i]);
+                    }
+                }   
+                console.log(radioValue, rightArray, wrongArray, DNA, game.answer);
+                $("#quiz").empty();
+                var final = 
+                "<h2> Times Up!</h2>" +
+                "<div id='final'> <h2> You got: " + rightArray.length + " right! </h2>" +
+                "<h2> You got: " + wrongArray.length + " wrong! </h2>" +
+                "<h2> You did not Answer: " + DNA.length + " questions! </h2>" +
+                "<input type = 'button' value='Replay' id='restart'>";
+                $("#quiz").append(final);
+
+                $("#restart").on("click", function() {
+                    game.timer = 30;
+                    $("#quiz").empty();
+                    game.quiz();
+                })
+                clearInterval(myTimer);
+            }
+        },1000)
+
+
+
+
+        var radioValue = [];
+        var rightArray = [];
+        var wrongArray = [];
+        var DNA = [];
+
+        $("#submitBtn").on("click",function(){
+            clearInterval(myTimer);
+            var value1 = $("input[name='choice0']:checked").val();
+            var value2 = $("input[name='choice1']:checked").val();
+            var value3 = $("input[name='choice2']:checked").val();
+            var value4 = $("input[name='choice3']:checked").val();
+            var value5 = $("input[name='choice4']:checked").val();
+            
+            radioValue.push(value1, value2, value3, value4, value5);
+            console.log(radioValue);
+
+            for(var i = 0; i < game.questions.length; i++) {
+                if(radioValue[i] == undefined) {
+                    DNA.push(i);
+                } else if(radioValue[i] == game.answer[i]) {
+                    rightArray.push(radioValue[i]);
+                } else if(radioValue[i] !== game.answer[i] && radioValue[i] !== undefined) {
+                    wrongArray.push(radioValue[i]);
+                }
+            }   
+            console.log(radioValue, rightArray, wrongArray, DNA, game.answer);
+            $("#quiz").empty();
+            var final = 
+            "<div id='final-div'><h2> Times Up!</h2>" +
+            "<div id='final'> <h2> You got: " + rightArray.length + " right! </h2>" +
+            "<h2> You got: " + wrongArray.length + " wrong! </h2>" +
+            "<h2> You did not Answer: " + DNA.length + " questions! </h2>" +
+            "<input type = 'button' value='Replay' id='restart'></div>";
+            $("#quiz").append(final);
+
+            $("#restart").on("click", function() {
+                game.timer = 30;
+                $("#quiz").empty();
+                game.quiz();
+            })
+        })
     }
 }
+
+
 
 game.start();

@@ -75,13 +75,23 @@ input, label {
     padding: 0.7rem;
     font-size: 1.3rem;
     font-weight: 500;
+    margin-bottom: 5rem;
+    margin-top: 2rem;
 }
 
 input {
     margin-left: 3rem;
 }
 
-#populate {
+label:hover {
+    text-decoration: underline;
+}
+
+form {
+    text-align: center;
+}
+
+#answer-choices {
     display: flex;
     flex-direction: column;
 }
@@ -92,7 +102,7 @@ input {
 
 #submitBtn {
     width: 90%;
-    margin: 3rem 3rem 3rem;
+    margin: 20rem 3rem 3rem;
     border-radius: 12px;
     font-weight: 600;
     font-size: 1.5rem;
@@ -107,4 +117,22 @@ input {
 
 #time {
     text-align: center;
+    margin-bottom: 5rem;
+}
+
+#final-div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#restart {
+    width: 50%;
+    margin: 3rem auto;
+    border-radius: 12px;
+}
+
+#restart:hover {
+    background-color: #343a40;
+    color: #f4f4f4;
 }
