@@ -3,9 +3,9 @@
 //   - question:
 //   - answer: (this will be a number based on which radio button is pressed)
 //This will automatically start countdown from 30 secs.
-//If countdown reaches 0 secs, display "Time's Up" then move on to next question in 2 secs.
-//If player chooses wrong answer display "Wrong" then move on to next questions in 2 secs.
-//At the end, display # questions right, # questions wrong, and option to restart game. 
+//If countdown reaches 0 secs, display "Time's Up" then shows score screen
+//If user finishes and presses submit then shows score screen
+// score screen consists of # of right, # of wrong and # of did not answer and a replay button
 
 var game = {
     // Create object of questions made into seperate objects
@@ -96,11 +96,11 @@ var game = {
                 console.log(radioValue, rightArray, wrongArray, DNA, game.answer);
                 $("#quiz").empty();
                 var final = 
-                "<h2> Times Up!</h2>" +
+                "<div id='final-div'><h2> Times Up!</h2>" +
                 "<div id='final'> <h2> You got: " + rightArray.length + " right! </h2>" +
                 "<h2> You got: " + wrongArray.length + " wrong! </h2>" +
                 "<h2> You did not Answer: " + DNA.length + " questions! </h2>" +
-                "<input type = 'button' value='Replay' id='restart'>";
+                "<input type = 'button' value='Replay' id='restart'></div>";
                 $("#quiz").append(final);
 
                 $("#restart").on("click", function() {

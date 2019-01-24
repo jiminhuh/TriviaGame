@@ -118,6 +118,10 @@ form {
 #time {
     text-align: center;
     margin-bottom: 5rem;
+    font-size: 1.7rem;
+    position: sticky;
+    top: 2rem;
+    right: 2rem;
 }
 
 #final-div {
@@ -136,3 +140,4 @@ form {
     background-color: #343a40;
     color: #f4f4f4;
 }
+
